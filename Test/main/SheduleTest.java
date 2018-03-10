@@ -16,7 +16,7 @@ public class SheduleTest {
         testFirst.addIntStation("SPB");
         t.addNewTrain(testFirst);
         t.addNewTrain(testSecond);
-        assertEquals("lastochka" , t.findTrain("Moscow" , "7:45" , "SPB"));
+        assertEquals(testFirst , t.findTrain("Moscow" , "7:45" , "SPB"));
     }
 
     @Test
@@ -28,15 +28,14 @@ public class SheduleTest {
         t.addNewTrain(testFirst);
         t.addNewTrain(testSecond);
         t.removeTrain("sokol");
-        assertEquals("lastochka" , t.findTrain("Moscow" , "7:45" , "SPB"));
+        assertEquals(testFirst , t.findTrain("Moscow" , "7:45" , "SPB"));
     }
-
     @Test
     public void addNewTrain() {
         Shedule t = new Shedule();
         Train test = new Train("lastochka" , "Moscow" , "8:00");
         test.addIntStation("SPB");
         t.addNewTrain(test);
-        assertEquals("lastochka" , t.findTrain("Moscow" , "7:45" , "SPB"));
+        assertEquals(test , t.findTrain("Moscow" , "7:45" , "SPB"));
     }
 }

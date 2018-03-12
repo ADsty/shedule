@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import java.time.LocalTime;
 
+import java.util.Iterator;
+
 public class Shedule {
     public ArrayList<Train> names;
 
@@ -15,7 +17,8 @@ public class Shedule {
      * If there are two trains with the same departure time, the program will display the train that was added earlier.
      * @throws IllegalArgumentException when the data is entered incorrectly or there is no such train in the timetable
      */
-    public Train findTrain(String endStation, LocalTime currentTime) {
+    public ArrayList<Train> findTrain(String endStation, LocalTime currentTime) {
+        ArrayList<Train> out = new ArrayList<>();
         if (!endStation.matches("\\w+")) throw new IllegalArgumentException("Incorrect data entered");
         Train x = new Train("forComparison", endStation, LocalTime.of(23, 59, 59, 0));
         Train p = new Train("forComparison", endStation, currentTime);
@@ -26,22 +29,21 @@ public class Shedule {
                 if (t.getDepartureTime().getMinute() < x.getDepartureTime().getMinute()) x = t;
             }
         }
-        if (x.getName().equals("forComparison")) throw new IllegalArgumentException("No trains found on your request");
-        return x;
+        if (!x.getName().equals("forComparison")) out.add(x);
+        return out;
     }
 
     /**
      * @param name is name of the train that you want to delete
      * @throws IllegalArgumentException when the data is entered incorrectly
-     *                                  The method looks for a train with the same name and removes it
+     *                                  The method looks for a trains with the same name and removes it
      */
     public void removeTrain(String name) {
         if (!name.matches("\\w+")) throw new IllegalArgumentException("The name of the train is incorrect");
-        for (Train t : names) {
-            if (t.getName().equals(name)) {
-                names.remove(t);
-                break;
-            }
+        Iterator<Train> iterator = names.iterator();
+        while (iterator.hasNext()) {
+            Train train = iterator.next();
+            if (train.getName().equals(name)) iterator.remove();
         }
     }
 

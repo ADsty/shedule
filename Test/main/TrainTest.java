@@ -26,14 +26,6 @@ public class TrainTest {
         assertEquals(LocalTime.of(8, 0, 0, 0), test.getDepartureTime());
     }
 
-    @Test
-    public void getIntStations() throws Exception {
-        Train test = new Train("lastochka", "Moscow", LocalTime.of(8, 0, 0, 0));
-        test.addIntStation("Kirishi");
-        ArrayList<String> value = new ArrayList<>();
-        value.add("Kirishi");
-        assertEquals(value, test.getIntStations());
-    }
 
     @Test
     public void addIntStation() throws Exception {

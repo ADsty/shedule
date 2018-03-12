@@ -2,48 +2,58 @@ package main;
 
 import java.util.ArrayList;
 
+import java.time.LocalTime;
+
 public class Train {
     private String name;
     private String endStation;
-    private String departureTime;
+    private LocalTime departureTime;
     private ArrayList<String> intStations;
+
     /**
-     * TODO: Add to all methods catching of exceptions
+     * @return the name of this train
      */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return the end station of this train
+     */
     public String getEndStation() {
         return endStation;
     }
 
     /**
-     * @return departure time of the selected train in a minutes
-     * Time must be written in the form XX:XX
+     * @return the departure time of this train
      */
-    public int getDepartureTime() {
-        int time = 0;
-        String[] parts = departureTime.split(":");
-        for (String part : parts) {
-            int number = Integer.parseInt(part);
-            time = time * 60 + number;
-        }
-        return time;
+    public LocalTime getDepartureTime() {
+        return departureTime;
     }
 
+    /**
+     * @return the list of intermediate stations of this train
+     */
     public ArrayList<String> getIntStations() {
         return intStations;
     }
 
     /**
      * @param intStation is the name of the station you want to add
+     * @throws IllegalArgumentException when the data is entered incorrectly or already exists such a station
      */
     public void addIntStation(String intStation) {
-        intStations.add(intStation);
+        if (!intStation.matches("\\w+")) throw new IllegalArgumentException("Station name is invalid");
+        if (!intStations.contains(intStation)) intStations.add(intStation);
+        else throw new IllegalArgumentException("A station with this name already exists");
     }
 
+    /**
+     * @param intStation is the name of the station you want to add
+     * @throws IllegalArgumentException when there is no such station
+     */
     public void removeIntStation(String intStation) {
+        if (!intStations.contains(intStation)) throw new IllegalArgumentException("There is no such station");
         for (String t : intStations) {
             if (t.equals(intStation)) {
                 intStations.remove(t);
@@ -56,9 +66,12 @@ public class Train {
      * @param name          is the name of the train
      * @param endStation    is the station to which the train is going
      * @param departureTime is the time when the train departs from the initial station
-     *                      Creates a new empty list of intermediate stations
+     * @throws IllegalArgumentException when the data is entered incorrectly
+     *                                  Creates a new empty list of intermediate stations
      */
-    public Train(String name, String endStation, String departureTime) {
+    public Train(String name, String endStation, LocalTime departureTime) {
+        if (!name.matches("\\w+") || !endStation.matches("\\w+"))
+            throw new IllegalArgumentException("Incorrect data entered");
         this.name = name;
         this.endStation = endStation;
         this.departureTime = departureTime;

@@ -53,8 +53,7 @@ public class SheduleTest {
         t.addNewTrain(testFirst);
         t.addNewTrain(testSecond);
         t.removeTrain("sokol");
-        forComparison.add(testFirst);
-        assertEquals(forComparison, t.findTrain("Moscow", LocalTime.of(7, 45, 0, 0)));
+        assertEquals(forComparison, t.findTrain("NY", LocalTime.of(7, 45, 0, 0)));
     }
 
     @Test(expected = IllegalArgumentException.class)

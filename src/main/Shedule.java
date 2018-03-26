@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.util.Iterator;
 
 public class Shedule {
-    public ArrayList<Train> names;
+    private ArrayList<Train> names;
 
     /**
      * @param endStation  is the name of the station you need to reach
@@ -15,21 +15,20 @@ public class Shedule {
      * @return the nearest train
      * The method looks for trains with the same name and compares the time of their departure.
      * If there are two trains with the same departure time, the program will display the train that was added earlier.
-     * @throws IllegalArgumentException when the data is entered incorrectly or there is no such train in the timetable
+     * @throws IllegalArgumentException when the data is entered incorrectly
      */
     public ArrayList<Train> findTrain(String endStation, LocalTime currentTime) {
         ArrayList<Train> out = new ArrayList<>();
         if (!endStation.matches("\\w+")) throw new IllegalArgumentException("Incorrect data entered");
-        Train x = new Train("forComparison", endStation, LocalTime.of(23, 59, 59, 0));
-        Train p = new Train("forComparison", endStation, currentTime);
         for (Train t : names) {
-            if (t.getEndStation().equals(endStation) &&
-                    t.getDepartureTime().getHour() * 60 + t.getDepartureTime().getMinute() >
-                            p.getDepartureTime().getHour() + p.getDepartureTime().getMinute()) {
-                if (t.getDepartureTime().getMinute() < x.getDepartureTime().getMinute()) x = t;
+            if (t.getEndStation().equals(endStation) && t.getDepartureTime().isAfter(currentTime)) {
+                if (out.isEmpty()) out.add(t);
+                else if (out.get(0).getDepartureTime().isAfter(t.getDepartureTime())){
+                    out.clear();
+                    out.add(t);
+                }
             }
         }
-        if (!x.getName().equals("forComparison")) out.add(x);
         return out;
     }
 

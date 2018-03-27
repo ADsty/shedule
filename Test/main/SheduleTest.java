@@ -15,14 +15,13 @@ public class SheduleTest {
     private Shedule t;
     private ArrayList<Train> forComparison;
     private Train testFirst;
-    private Train testSecond;
 
     @Before
     public void creatingNewElements() {
         t = new Shedule();
         forComparison = new ArrayList<>();
         testFirst = new Train("lastochka", "Moscow", LocalTime.of(8, 0, 0, 0));
-        testSecond = new Train("sokol", "NY", LocalTime.of(9, 0, 0, 0));
+        Train testSecond = new Train("sokol", "NY", LocalTime.of(9, 0, 0, 0));
         t.addNewTrain(testFirst);
         t.addNewTrain(testSecond);
     }

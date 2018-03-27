@@ -16,6 +16,8 @@ public class TrainTest {
     @Before
     public void creatingNewElements() {
         test = new Train("lastochka", "Moscow", LocalTime.of(8, 0, 0, 0));
+        test.addIntStation("Kirishi");
+        test.addIntStation("SPB");
     }
 
     @Test
@@ -36,11 +38,9 @@ public class TrainTest {
 
     @Test
     public void addIntStation() throws Exception {
-        test.addIntStation("Kirishi");
-        test.addIntStation("NY");
         ArrayList<String> value = new ArrayList<>();
         value.add("Kirishi");
-        value.add("NY");
+        value.add("SPB");
         assertEquals(value, test.getIntStations());
     }
 
@@ -52,13 +52,10 @@ public class TrainTest {
     @Test(expected = IllegalArgumentException.class)
     public void sameStations() {
         test.addIntStation("Kirishi");
-        test.addIntStation("Kirishi");
     }
 
     @Test
     public void removeIntStation() throws Exception {
-        test.addIntStation("Kirishi");
-        test.addIntStation("SPB");
         test.removeIntStation("SPB");
         ArrayList<String> value = new ArrayList<>();
         value.add("Kirishi");
@@ -67,8 +64,6 @@ public class TrainTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void wrongDataRemoveIntStation() {
-        test.addIntStation("Kirishi");
-        test.addIntStation("SPB");
         test.removeIntStation("*/*-**-/-*-*-*");
     }
 

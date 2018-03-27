@@ -23,7 +23,7 @@ public class Shedule {
         for (Train t : names) {
             if (t.getEndStation().equals(endStation) && t.getDepartureTime().isAfter(currentTime)) {
                 if (out.isEmpty()) out.add(t);
-                else if (out.get(0).getDepartureTime().isAfter(t.getDepartureTime())){
+                else if (out.get(0).getDepartureTime().isAfter(t.getDepartureTime())) {
                     out.clear();
                     out.add(t);
                 }

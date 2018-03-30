@@ -56,7 +56,7 @@ public class Train {
         if (!intStations.contains(intStation)) throw new IllegalArgumentException("There is no such station");
         for (String t : intStations) {
             if (t.equals(intStation)) {
-                intStations.remove(t);
+                intStations.remove(t) ;
                 break;
             }
         }
